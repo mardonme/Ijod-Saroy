@@ -1,0 +1,60 @@
+:root {
+  --yellow: #f5c32c;
+  --yellowgreen: #ceef57;
+  --bluewhite: #56becc;
+  --gray: rgba(36, 45, 73, 0.65);
+  --profileShadow: 0px 4px 17px 2px rgba(0, 0, 0, 0.25);
+  --hrColor: #cfcdcd;
+  --cardColor: rgba(238, 243, 247, 0.445);
+  --buttonBg: linear-gradient(98.63deg, #25cff9 0%, #0ca3c9 50%, #0d3fac 100%);
+  --buttonBgTwo: linear-gradient(
+    98.63deg,
+    #ec2222 0%,
+    #d10505 50%,
+    #970b0b 100%
+  );
+  --inputColor: rgba(8, 15, 85, 0.07);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 0 40px;
+}
+
+.App {
+  margin-top: 100px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px auto;
+  width: 50%;
+}
+
+.title > h2 {
+  padding: 10px;
+  font-size: 25px;
+  text-align: center;
+  font-family: sans-serif;
+  font-style: normal;
+  background-color: #eaebf0;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.title > span {
+  border: 1px solid rgba(128, 128, 128, 0.285);
+  width: 50%;
+}
+
+section {
+  margin-top: 100px;
+}

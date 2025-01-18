@@ -1,0 +1,97 @@
+@font-face {
+    font-family: Rubik Doodle Shadow;
+    src: url(../../fonts/RubikDoodleShadow-Regular.ttf);
+}
+
+.category{
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    display: flex;
+    text-align: center;
+    border-radius: 20px;
+    align-items: center;
+    flex-direction: column;
+    transition: all 0.4s ease 0s;
+    justify-content: space-between;
+    box-shadow: 0 0 5px rgba(100, 100, 100, 0.400);
+}
+
+a {
+    text-decoration: none;
+}
+
+.category img {
+    height: 100px;
+    object-fit: cover;
+    transition: all 0.4s ease 0s;
+}
+
+.category h2 {
+    font-family: Rubik Doodle Shadow , sans-serif;
+    font-size: 20px;
+}
+
+.category:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.add-form{
+    text-align: center;
+    margin: 40px auto;
+}
+
+.add-form b{
+    font-family: Rubik Doodle Shadow , sans-serif;
+    font-size: 20px;
+}
+
+.add-form div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    transition: all 0.4s ease 0s;
+    margin: 10px;
+    gap: 20px;
+
+}
+
+.add-form input {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    outline: none;
+    border: 1px solid #A2001D;
+    box-shadow: 0 0 5px rgba(100, 100, 100, 0.400);
+}
+.add-form input::placeholder{
+    color: #A2001D;
+}
+
+.add-form i, .add-form button {
+    color: #A2001D;
+    border: 1px solid #A2001D;
+    background: white;
+    padding: 10px;
+    transition: all 0.4s ease 0s;
+    border-radius: 10px;
+}
+
+.add-form button {
+    font-family: Rubik Doodle Shadow , sans-serif;
+    padding: 6px 10px;
+}
+
+.add-form i:hover {
+    cursor: pointer;
+    background: var(--buttonBgTwo);
+    color: #fff;
+}
+
+.add-form button:hover {
+    cursor: pointer;
+    background: var(--buttonBgTwo);
+    color: #fff;
+}
