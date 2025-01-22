@@ -1,13 +1,12 @@
 footer {
-  margin-top: 50px;
-  padding: 20px;
+  /* margin-top: 50px; */
   box-shadow: 0 0 5px rgba(128, 128, 128, 0.45);
   overflow: hidden;
 }
 
 .footer-about {
   display: flex;
-  padding: 20px 0;
+  padding: 16px 0;
   align-items: center;
   justify-content: space-around;
 }
@@ -82,7 +81,7 @@ footer {
 }
 
 .information {
-  width: 100%;
+  width: 100%;  
 }
 
 .information-faq {
@@ -93,7 +92,7 @@ footer {
 }
 
 .information-faq h6 {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   color: #666872;
   cursor: pointer;

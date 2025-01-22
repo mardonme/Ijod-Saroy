@@ -20,16 +20,31 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: none;
 }
 
 .container {
   max-width: 1440px;
   padding: 0 40px;
 }
-
 .App {
-  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures footer sticks to the bottom */
 }
+
+.content {
+  flex: 1;
+  /* margin-top: 100px; */
+  padding: 0 20px;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)), /* Overlay */
+    url(/public/images/ijod-bg.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+
 
 .title {
   display: flex;

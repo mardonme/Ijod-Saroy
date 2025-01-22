@@ -1,13 +1,12 @@
 .navbar {
-  position: fixed;
-  top: -1px;
+  position: sticky;
+  top: 0;
   left: 0;
   z-index: 9998;
   width: 100%;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(128, 128, 128, 0.45);
   padding: 10px;
-  margin: 1px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,26 +45,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
 }
 
-.nav-item a {
-  color: #000;
+.nav-item h2 {
+  color: #214690; /* A fresh green color */
   text-decoration: none;
+  font-family: 'Poppins', sans-serif; /* Modern and elegant font */
+  font-size: 1.5rem; /* Adjust to fit your design */
+  font-weight: 600; /* Slightly bold for emphasis */
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
 }
 
 .login {
-  color: #a2001d !important;
+  color: #2e64ba !important;
   font-weight: bold;
   padding: 10px 30px;
   border-radius: 30px;
   font-family: sans-serif;
-  border: 2px solid #a2001d;
+  border: 2px solid #3b82f6;
 }
 
 .login:hover {
   color: white !important;
-  background: var(--buttonBgTwo);
+  background: #2e64ba;
 }
 
 .home-exit {

@@ -1,26 +1,42 @@
-import React from 'react'
-import './Card.css'
-import { useInfoContext } from '../../context/InfoContext'
+import React from "react";
+import "./Card.css";
+import { useInfoContext } from "../../context/InfoContext";
+import { toast } from "react-toastify";
+import { deleteUser } from "../../api/deleteRequests";
 
-const Card = ({car}) => {
-  const {serverUrl} = useInfoContext()
+const Card = ({ car }) => {
+  const { serverUrl, exit, toggle } = useInfoContext();
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this car?")) {
+      try {
+        const res = await deleteUser(id, "car");
+        toast.dismiss();
+        toast.success(res?.data.message);
+        toggle();
+      } catch (err) {
+        if (err?.response?.data.message === "jwt expired") {
+          exit();
+        }
+        toast.dismiss();
+        toast.error(err?.response?.data.message);
+      }
+    }
+  };
+
   return (
     <div>
-       <div className="card">
-            <img src={`${serverUrl}/${car.carImg}`} alt="car_photo" />
-            <div className="card-body">
-                <h4 style={{ textAlign: "center", marginTop: "10px" }}>{car.name}</h4>
-                <h5>year: <b>{car.year}</b></h5>
-                <h5>color: <b>{car.color}</b></h5>
-                <h5>company: <b>{car.company}</b></h5>
-                <h5>description: <b>{car.description}</b></h5>
-                <h5>location: <b>{car.location}</b></h5>
-                <h5>price: <b>{car.price}</b></h5>
-            </div>
-                <button className='btn-card'>Read More</button>
+      <div className="card">
+        <img src={`${serverUrl}/${car.carImg}`} alt="card_photo" />
+        <div className="card-body">
+          <h4 style={{ marginTop: "10px" }}> Ismi: {car.name}</h4>
+          <h4 style={{ marginTop: "10px" }}> Familiyasi: {car.surname}</h4>
+          <h4 style={{ marginTop: "10px" }}> Telefon: {car.phone}</h4>
+        </div>
+        <div style={{display:"flex", flexDirection: "row-reverse"}}>
+          <i class='bx bx-trash bx-sm' style={{ marginRight: "10px", cursor: "pointer", color: "#A2001D" }} onClick={() => handleDelete(car._id)}></i>      </div>
         </div>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

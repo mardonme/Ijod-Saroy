@@ -12,6 +12,8 @@ import Home from './pages/Home/Home';
 import Brands from './pages/Brands/Brands';
 import NotFound from './pages/NotFoud.jsx/NotFound';
 import 'react-phone-input-2/lib/style.css'
+import Footer from './components/Footer/Footer';
+import 'boxicons/css/boxicons.min.css';
 
 function App() {
 
@@ -20,17 +22,20 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Routes>
-        {/* <Route path='/' element={<Home />}/> */}
-        <Route path='/cars' element={<Cars/>}/>
-        <Route path='/auth' element={<Auth />}/>
-        <Route path='/brand/:id' element={<Brands />}/>
-        <Route path='/account' element={<Account/>}/>
-        <Route path='/' element={<Category/>}/>
-        <Route path='*' element={<NotFound/>}/>
-      </Routes>
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Category />} /> {/* Define the default route */}
+          <Route path="/users" element={<Cars />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/brand/:id" element={<Brands />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="*" element={<NotFound />} /> {/* Fallback for unmatched routes */}
+        </Routes>
+      </div>
+      <Footer />
       <ToastContainer />
     </div>
+
   );
 }
 

@@ -15,7 +15,7 @@ const Brands = () => {
                 return (
                     <Card key={res._id} car={res}/>
                 )
-            }): <h2>Cars not foud</h2>}
+            }): <h2>User not found</h2>}
         </div>
     </div>
   )

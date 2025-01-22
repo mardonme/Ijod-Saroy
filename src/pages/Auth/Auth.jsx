@@ -36,10 +36,10 @@ const Auth = () => {
     <div className="container auth-box">
       <div className="auth">
         <div className="auth-left">
-          <img src={audi} alt="logo_app" className="logo-img" />
+          {/* <img src={audi} alt="logo_app" className="logo-img" /> */}
           <div className="app-name">
-            <h1>Car Shops</h1>
-            <h6>Explore with WEBSTAR IT ACADEMY</h6>
+            <h1>Yoshlar ijod saroyi</h1>
+            <h6></h6>
           </div>
         </div>
         <div className="auth-right">
