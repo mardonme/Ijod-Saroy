@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="information">
           <div className="information-faq">
             <div className="relationship">
-              <h6>© 2023 Yoshlar ijod saroyi</h6>
+              <h6>© 2025 Yoshlar ijod saroyi</h6>
             </div>
                 <div className="poiciy">
                   <h6>Terms of Service</h6>
