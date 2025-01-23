@@ -13,31 +13,26 @@ const Header = () => {
           <nav className='navbar'>
             <ul className="nav-list">
                 <li className='nav-item'>
-                </li>
-                <li className='nav-item'>
-                    <NavLink to='/'>
-                      <h2>Yoshlar ijod saroyi</h2>
-                    </NavLink>
-                </li>
-                <li className='nav-item'>
-                  {!currentUser ? <NavLink to="/auth" className='nav-link login'>Login</NavLink> : <div className="home-exit">
-                        <div onClick={exit} className="exit-login"><i className="fa-solid fa-right-to-bracket"></i></div>
-                    </div>}
-                </li>
-            </ul>
-            <ul className="res-list">
-                <li className='res-logo'>
-                    <NavLink to='/'>
-                      <h2>Yoshlar ijod saroyi</h2>
-                    </NavLink>
-                </li>
-                <li className="res-item">
-                  {!currentUser ? <NavLink to="/auth" className='nav-link login'>Login</NavLink> : <div className="home-exit">
-                        <div onClick={exit} className="exit-login"><i className="fa-solid fa-right-to-bracket"></i></div>
-                    </div>}
+                  <NavLink to='/users'>
+                    Ishchi
+                  </NavLink>
+                  <NavLink to='/admin'>
+                    Admin
+                  </NavLink>
                 </li>
             </ul>
           </nav>
+          <NavLink to='/' class="logo">
+            <div className="logo">
+              <img className='logo-img' src="/images/logo.png" alt="logo" />
+              <img className='logo-text' src="/images/logo-text.png" alt="logo-text" />
+            </div>
+          </NavLink>
+          <div className='log-out'>
+            {!currentUser ? <NavLink to="/auth" className='nav-link login'>Login</NavLink> : <div className="home-exit">
+                  <div onClick={exit} className="exit-login"><i className="fa-solid fa-right-to-bracket"></i></div>
+              </div>}
+          </div>
     </header>
 
   )

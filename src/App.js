@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useInfoContext } from './context/InfoContext';
@@ -26,7 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Category />} /> {/* Define the default route */}
           <Route path="/users" element={<Cars />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/auth" element={true ? <Auth /> : <Navigate to='/' replace/>} />
           <Route path="/brand/:id" element={<Brands />} />
           <Route path="/account" element={<Account />} />
           <Route path="*" element={<NotFound />} /> {/* Fallback for unmatched routes */}
