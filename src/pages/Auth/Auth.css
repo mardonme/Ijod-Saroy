@@ -1,5 +1,5 @@
 @font-face {
-    font-family: Rubik Doodle Shadow;
+    font-family: 'Poppins', sans-serif;
     src: url(../../fonts/RubikDoodleShadow-Regular.ttf);
 }
 
@@ -38,7 +38,7 @@
 }
 
 .app-name>h1 {
-    font-family: Rubik Doodle Shadow , sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 48px;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .auth-form h3, .auth-form button{
-    font-family: Rubik Doodle Shadow , sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .auth-form>div {

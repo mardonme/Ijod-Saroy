@@ -1,5 +1,5 @@
 @font-face {
-    font-family: Rubik Doodle Shadow;
+    font-family: 'Poppins', sans-serif;
     src: url(../../fonts/RubikDoodleShadow-Regular.ttf);
 }
 
@@ -29,7 +29,7 @@ a {
 }
 
 .category h2 {
-    font-family: Rubik Doodle Shadow , sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 20px;
 }
 
@@ -44,7 +44,7 @@ a {
 }
 
 .add-form b{
-    font-family: Rubik Doodle Shadow , sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 20px;
 }
 
@@ -81,7 +81,7 @@ a {
 }
 
 .add-form button {
-    font-family: Rubik Doodle Shadow , sans-serif;
+    font-family: 'Poppins', sans-serif;
     padding: 6px 10px;
 }
 

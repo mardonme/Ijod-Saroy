@@ -52,7 +52,7 @@ header {
 .nav-item h2 {
   color: #214690; /* A fresh green color */
   text-decoration: none;
-  font-family: 'Poppins', sans-serif; /* Modern and elegant font */
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; /* Modern and elegant font */
   font-size: 1.5rem; /* Adjust to fit your design */
   font-weight: 600; /* Slightly bold for emphasis */
   transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */

@@ -37,7 +37,7 @@ const Category = () => {
               <input
                 type="text"
                 name="title"
-                placeholder="Category title"
+                placeholder="Ofice nomi"
                 required
               />
               <label htmlFor="categoryImg">
