@@ -29,21 +29,6 @@ header {
   height: 50px;
   object-fit: contain;
 }
-.hero-cars {
-  width: 600px;
-}
-
-.hero-cars img {
-  width: 100%;
-  object-fit: contain;
-}
-
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 100px;
-}
 
 .navbar .res-list {
   display: none;
