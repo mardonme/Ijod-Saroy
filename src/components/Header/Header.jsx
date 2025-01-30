@@ -1,6 +1,6 @@
 import React from 'react'
 import './Header.css'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useInfoContext } from '../../context/InfoContext'
 
 const Header = () => {
@@ -27,7 +27,7 @@ const Header = () => {
       </NavLink>
       <div className='log-out'>
         {!currentUser ? <NavLink to="/auth" className='nav-link login'>Login</NavLink> : <div className="home-exit">
-          <div onClick={exit} className="exit-login"><i className="fa-solid fa-right-to-bracket"></i></div>
+          <Link to='/profile' className="exit-login"><i className="fa-solid fa-user"></i></Link>
         </div>}
       </div>
     </header>

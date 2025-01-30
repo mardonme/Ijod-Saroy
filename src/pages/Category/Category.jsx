@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Category.css";
 import { useInfoContext } from "../../context/InfoContext";
 import { addProd } from "../../api/addRequests";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader";
+import { Modal } from "antd";
 
 const Category = () => {
   const { categorys, serverUrl, currentUser, toggle, exit } = useInfoContext();
+  const [open, setOpen] = useState()
+  const toggleModal = () => setOpen(!open)
 
   const addcategory = async (e) => {
     e.preventDefault();
@@ -29,32 +32,6 @@ const Category = () => {
 
   return (
     <div className="container">
-      <form className="add-form" action="" onSubmit={addcategory}>
-        <h4>{currentUser?.role === 101 && "Add"} Oficce</h4>
-        {currentUser?.role === 101 && (
-          <>
-            <div>
-              <input
-                type="text"
-                name="title"
-                placeholder="Ofice nomi"
-                required
-              />
-              <label htmlFor="categoryImg">
-                <i className="fa-solid fa-image"></i>
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  id="categoryImg"
-                  name="image"
-                  required
-                />
-              </label>
-              <button>add</button>
-            </div>
-          </>
-        )}
-      </form>
       <div className="cars-box">
         {categorys?.length > 0 ? (
           categorys.map((category) => {
@@ -74,6 +51,35 @@ const Category = () => {
           <Loader />
         )}
       </div>
+      {open && <Modal open={open} onCancel={toggleModal}>
+          <form className="add-form" action="" onSubmit={addcategory}>
+          <h4>{currentUser?.role === 101 && "Add"} Oficce</h4>
+          {currentUser?.role === 101 && (
+            <>
+              <div>
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Ofice nomi"
+                  required
+                />
+                <label htmlFor="categoryImg">
+                  <i className="fa-solid fa-image"></i>
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    id="categoryImg"
+                    name="image"
+                    required
+                  />
+                </label>
+                <button>add</button>
+              </div>
+            </>
+          )}
+        </form>
+      </Modal>}
+      <button title="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-plus"></i></button>
     </div>
   );
 };
