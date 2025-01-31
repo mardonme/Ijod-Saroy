@@ -11,6 +11,14 @@ const Category = () => {
   const { categorys, serverUrl, currentUser, toggle, exit } = useInfoContext();
   const [open, setOpen] = useState()
   const toggleModal = () => setOpen(!open)
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
 
   const addcategory = async (e) => {
     e.preventDefault();
@@ -56,23 +64,32 @@ const Category = () => {
           <h4>{currentUser?.role === 101 && "Add"} Oficce</h4>
           {currentUser?.role === 101 && (
             <>
-              <div>
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="Ofice nomi"
-                  required
-                />
-                <label htmlFor="categoryImg">
+               <div>
+                <input type="text" name="title" placeholder="Ofice nomi" required />
+
+                <label htmlFor="categoryImg" style={{ cursor: "pointer" }}>
                   <i className="fa-solid fa-image"></i>
                   <input
                     style={{ display: "none" }}
                     type="file"
                     id="categoryImg"
                     name="image"
+                    accept="image/*"
+                    onChange={handleImageChange}
                     required
                   />
                 </label>
+
+                {imagePreview && (
+                  <div style={{ marginTop: "10px" }}>
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                    />
+                  </div>
+                )}
+
                 <button>add</button>
               </div>
             </>
