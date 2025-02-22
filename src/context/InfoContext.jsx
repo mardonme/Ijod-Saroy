@@ -1,4 +1,4 @@
-import { getAllCars } from "../api/getRequests";
+import { getAll } from "../api/getRequests";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 
@@ -17,17 +17,17 @@ export const InfoProvider = ({children}) => {
     const toggle = () => setLoad(!load)
 
     useEffect(() => {
-        const getAll = async () => {
+        const getAllRes = async () => {
             try {
-                const resCar = await getAllCars('car')
-                const resCategory = await getAllCars('category')
-                setCars(resCar.data.cars)
-                setCategorys(resCategory.data.categorys)
+                const resWorker = await getAll('worker')
+                const resCategory = await getAll('category')                
+                setCars(resWorker.data.getAll)
+                setCategorys(resCategory.data.getAll)
             } catch (error) {
-                
+                console.log(error);
             }
         }
-        getAll()
+        getAllRes()
     },[currentUser, load])
     
     const exit = () => {

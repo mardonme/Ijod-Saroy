@@ -4,7 +4,7 @@ import './NotFound.css'
 const NotFound = () => {
   return (
     <div id="main">
-      <div class="fof">
+      <div className="fof">
         <h1>Bu sahifa topilmadi!</h1>
         <h2>Error 404</h2>
       </div>

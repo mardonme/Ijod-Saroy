@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Category.css";
 import { useInfoContext } from "../../context/InfoContext";
-import { addProd } from "../../api/addRequests";
+import { addRes } from "../../api/addRequests";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader";
@@ -11,21 +11,91 @@ const Category = () => {
   const { categorys, serverUrl, currentUser, toggle, exit } = useInfoContext();
   const [open, setOpen] = useState()
   const toggleModal = () => setOpen(!open)
-  const [imagePreview, setImagePreview] = useState(null);
+  const [title, setTitle] = useState('');
+  const [preview, setPreview] = useState(null);
+  const [clicked, setClicked] = useState(false);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
+  const handleFileSelect = (event) => {
+    if (!event) return;
+
+    const fr = new FileReader();    
+
+    const file = event.target.files[0];
+    const format = file?.type?.split("/")[1];
+    const maxSizeInMB = 2;
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+    if (
+      (file && format === "png") ||
+      (file && format === "jpeg") ||
+      (file && format === "jpg")
+    ) {
+      if (file.size > maxSizeInBytes) {
+        toast("Rasm hajmi 2 MB dan kichik bo'lishi kerak", "error");
+        return;
+      }
+      
+      fr.readAsDataURL(file);
+      console.log(fr);
+      fr.addEventListener("load", () => {
+        const url = fr.result;
+        localStorage.setItem("temp", JSON.stringify(url));
+        setPreview(url);
+       
+      }); 
+    } else {
+      toast("Rasm formatidagi xato", "error");
     }
   };
 
+  const handleDragOver = (event) => {
+    if (!event) return;
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    if (!event) return;
+    event.preventDefault();
+
+    const fr = new FileReader();    
+
+    const file = event.dataTransfer.files[0];
+    const format = file?.type?.split("/")[1];
+    const maxSizeInMB = 2;
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+    if (
+      (file && format === "png") ||
+      (file && format === "jpeg") ||
+      (file && format === "jpg")
+    ) {
+      if (file.size > maxSizeInBytes) {
+        toast("Rasm hajmi 2 MB dan kichik bo'lishi kerak", "error");
+        return;
+      }
+      fr.readAsDataURL(file);
+      console.log(fr);
+      fr.addEventListener("load", () => {
+        const url = fr.result;
+        localStorage.setItem("temp", JSON.stringify(url));
+        setPreview(url);
+       
+      });
+    } else {
+      toast("rasm formatidagi xato", "error");
+    }
+  };
+
+
   const addcategory = async (e) => {
     e.preventDefault();
+    setClicked(true)
     try {
       const data = new FormData(e.target);
-      const res = await addProd(data, "category");
+      const res = await addRes(data, "category");
       toggle();
+      toggleModal()
+      setClicked(false)
       e.target.reset();
       toast.dismiss();
       toast.success(res?.data.message);
@@ -33,6 +103,7 @@ const Category = () => {
       if (err?.response?.data.message === "jwt expired") {
         exit();
       }
+      setClicked(false)
       toast.dismiss();
       toast.error(err?.response?.data.message);
     }
@@ -42,15 +113,15 @@ const Category = () => {
     <div className="container">
       <div className="cars-box">
         {categorys?.length > 0 ? (
-          categorys.map((category) => {
+          categorys.map(office => {
             return (
-              <Link key={category._id} to={`/brand/${category._id}`}>
+              <Link key={office._id} to={`/brand/${office._id}`}>
                 <div className="category">
                   <img
-                    src={`${serverUrl}/${category.categoryImg}`}
+                    src={`${office.image.url}`}
                     alt="car_photo"
                   />
-                  <h2>{category.title}</h2>
+                  <h2>{office.title}</h2>
                 </div>
               </Link>
             );
@@ -59,44 +130,46 @@ const Category = () => {
           <Loader />
         )}
       </div>
-      {open && <Modal open={open} onCancel={toggleModal}>
+      {open && <Modal open={open} footer={false} onCancel={toggleModal}>
           <form className="add-form" action="" onSubmit={addcategory}>
-          <h4>{currentUser?.role === 101 && "Add"} Oficce</h4>
+          <h4>Yangi Ofis qo'shish</h4>
           {currentUser?.role === 101 && (
             <>
-               <div>
-                <input type="text" name="title" placeholder="Ofice nomi" required />
-
-                <label htmlFor="categoryImg" style={{ cursor: "pointer" }}>
-                  <i className="fa-solid fa-image"></i>
-                  <input
-                    style={{ display: "none" }}
-                    type="file"
-                    id="categoryImg"
-                    name="image"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    required
-                  />
-                </label>
-
-                {imagePreview && (
-                  <div style={{ marginTop: "10px" }}>
-                    <img
-                      src={imagePreview}
-                      alt="Preview"
-                      style={{ width: "100px", height: "100px", objectFit: "cover" }}
+               <div className="project-info">
+                  <div className="file-upload">
+                    <label htmlFor="file-input" className="upload-box" onDragOver={handleDragOver} onDrop={handleDrop} style={preview ? {border: '1px solid green'} : {borderStyle: 'dashed'}}>
+                      {preview ? (
+                        <img src={preview} alt="Preview" className="preview-image"/>
+                      ) : (
+                        <div className="upload-content">
+                          <p className="image-info">Yuklash uchun ustiga bosing <br /> <i className="fa-solid fa-download"></i></p>
+                          <p>
+                            Ofisni yoki ish posterini (suratini) tanlang.
+                            Yoki posterni (suratni) ushbu bo'lim ustiga olib keling.
+                          </p>
+                        </div>
+                      )}
+                    </label>
+                    <input
+                      id="file-input"
+                      type="file"
+                      name="image"
+                      required
+                      onChange={handleFileSelect}
+                      style={{ display: "none" }}
                     />
                   </div>
-                )}
-
-                <button>add</button>
-              </div>
+                  <div className="title-office">
+                      <input onChange={(e) => setTitle(title === "" || title === " " ? e.target.value.trim() :  e.target.value)} value={title} style={preview && title !== "" ? {borderColor: 'green'} : {}} id="office-title" type="text" name="title"required />
+                      <label>Ofisning (Ish joyining) nomi</label>
+                  </div>
+                  <button disabled={!preview || title === "" || title.trim() === "" || clicked} style={preview && title !== "" ? {borderColor: 'green', color: 'white', cursor: 'pointer', backgroundColor: 'green'} : {borderColor: 'rgba(255, 0, 0, 0.300)', color: 'rgba(255, 0, 0, 0.300)', cursor: 'no-drop'}}>Ofisni qo'shish</button>
+                </div>
             </>
           )}
         </form>
       </Modal>}
-      <button title="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-plus"></i></button>
+      <button title="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-calendar-plus"></i></button>
     </div>
   );
 };

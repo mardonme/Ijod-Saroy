@@ -4,5 +4,5 @@ const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 const API = axios.create({baseURL: serverUrl});
 
-export const getAllCars = (method) => API.get(`/api/${method}`); 
-export const getOneProd = (id, method) => API.get(`/api/${method}/${id}`); 
+export const getAll = (method) => API.get(`/api/${method}`); 
+export const getOne = (id, method) => API.get(`/api/${method}/${id}`); 

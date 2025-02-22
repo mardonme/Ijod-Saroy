@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom'
 const Brands = () => {
     const {cars} = useInfoContext()
     const {id} = useParams()
-    const result = cars.filter(car => car?.categoryId?._id === id)
+    const result = cars.filter(car => car?.categoryId === id)
+console.log(result);
 
   return (
     <div className="container">

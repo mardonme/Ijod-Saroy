@@ -19,7 +19,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <NavLink to='/' class="logo">
+      <NavLink to='/' className="logo">
         <div className="logo">
           <img className='logo-img' src="/images/logo.png" alt="logo" />
           <img className='logo-text' src="/images/logo-text.png" alt="logo-text" />
@@ -27,7 +27,7 @@ const Header = () => {
       </NavLink>
       <div className='log-out'>
         {!currentUser ? <NavLink to="/auth" className='nav-link login'>Login</NavLink> : <div className="home-exit">
-          <Link to='/profile' className="exit-login"><i className="fa-solid fa-user"></i></Link>
+          <Link to={`/profile/${currentUser._id}`} className="exit-login"><i className="fa-solid fa-user"></i></Link>
         </div>}
       </div>
     </header>
