@@ -66,7 +66,7 @@ const Account = () => {
                 <img src={user?.profilePicture ? user?.profilePicture?.url : "/images/default.jpg"} alt="profile" />
                 <label htmlFor="profilePicture"><i className='fa-solid fa-image'></i></label>
                 <input id='profilePicture' name='image' type="file" hidden/>
-                <span title={user?.isActive ? 'acitve' : "no-active"} className='user-active' style={user?.isActive ? {backgroundColor: 'green'} : {backgroundColor: 'red'}}></span>
+                {/* <span title={user?.isActive ? 'acitve' : "no-active"} className='user-active' style={user?.isActive ? {backgroundColor: 'green'} : {backgroundColor: 'red'}}></span> */}
               </div>
           </div>
           <div className="right-page">
@@ -77,6 +77,7 @@ const Account = () => {
                   <InputValue type="text" name='phoneNumber' defaultValue={user?.phoneNumber} placeholder='Xodimning (Ishchining) telefon raqami'/>
               </div>
           </div>
+          
           <button>Update</button>
         </form>
         <button onClick={exit}>Exit</button>

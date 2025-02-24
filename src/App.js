@@ -12,8 +12,10 @@ import NotFound from './pages/NotFoud.jsx/NotFound';
 import 'react-phone-input-2/lib/style.css'
 import Footer from './components/Footer/Footer';
 import 'boxicons/css/boxicons.min.css';
+import { useInfoContext } from './context/InfoContext';
 
 function App() {
+  const {currentUser} = useInfoContext
 
   return (
     <div className="App">
