@@ -23,6 +23,8 @@ const Card = ({ car }) => {
     }
   };
 
+  console.log(car);
+  
   return (
     <div>
       <div className="card">

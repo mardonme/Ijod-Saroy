@@ -6,18 +6,17 @@ html {
   /* height: 100%; */
 }
 
-body{
+/* body{
   font-family: 'Lato', sans-serif;
   color: #fdfdfd;
-  /* margin: 0; */
-}
+} */
 
 #main{
   display: table;
   width: 100%;
   height: 100vh;  
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .fof{
@@ -27,10 +26,13 @@ body{
 
 .fof h1{
   font-size: 50px;
-
+  font-family: 'Lato', sans-serif;
+  color: #fdfdfd;
 
 }
 .fof h2{
+  font-family: 'Lato', sans-serif;
+  color: #fdfdfd;
   font-size: 50px;
   display: inline-block;
   padding-right: 8px;
