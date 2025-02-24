@@ -1,0 +1,25 @@
+.cars-box{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px;
+}
+
+@media (max-width: 450px){
+    .cars-box{
+        padding: 20px;
+        justify-content: center;
+        gap: 10px;
+    }
+}
+
+/* .add-form select {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    outline: none;
+    border: 1px solid #A2001D;
+    box-shadow: 0 0 5px rgba(100, 100, 100, 0.400);
+} */

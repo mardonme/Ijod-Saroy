@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import audi from "../Home/img/audi-img.png"
 import "./Auth.css"
 import { toast } from 'react-toastify'
 import { logIn, signUp } from '../../api/authRequests'

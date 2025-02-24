@@ -1,4 +1,4 @@
-import { getAllCars } from "../api/getRequests";
+import { getAll } from "../api/getRequests";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 
@@ -8,8 +8,8 @@ export const useInfoContext = () => useContext(InfoContext)
 
 export const InfoProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("profile")) || null)
-    const [cars, setCars] = useState([])
-    const [categorys, setCategorys] = useState([])
+    const [cars, setCars] = useState(JSON.parse(localStorage.getItem("users")) || [])
+    const [categorys, setCategorys] = useState(JSON.parse(localStorage.getItem("categorys")) || [])
     const [load, setLoad] = useState(false)
 
     const serverUrl = process.env.REACT_APP_SERVER_URL
@@ -17,17 +17,19 @@ export const InfoProvider = ({children}) => {
     const toggle = () => setLoad(!load)
 
     useEffect(() => {
-        const getAll = async () => {
+        const getAllRes = async () => {
             try {
-                const resCar = await getAllCars('car')
-                const resCategory = await getAllCars('category')
-                setCars(resCar.data.cars)
-                setCategorys(resCategory.data.categorys)
+                const resUser = await getAll('user')
+                const resCategory = await getAll('category')    
+                localStorage.setItem('users', JSON.stringify(resUser.data.getAll))            
+                localStorage.setItem('categorys', JSON.stringify(resCategory.data.getAll))            
+                setCars(resUser.data.getAll)
+                setCategorys(resCategory.data.getAll)
             } catch (error) {
-                
+                console.log(error);
             }
         }
-        getAll()
+        getAllRes()
     },[currentUser, load])
     
     const exit = () => {
