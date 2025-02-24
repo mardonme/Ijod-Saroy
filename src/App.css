@@ -43,30 +43,59 @@
   background-position: center;
 }
 
+.options{
+  list-style-type: none;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  top: 45px;
+  right: 30px;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 120px;
+  background-color: white;
+  padding: 0;
+}
 
+.options li{
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: bold;
+  font-size: 15px;
+}
 
-.title {
+.options li:hover{
+  background-color: red;
+}
+
+.delBtn{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 50px auto;
-  width: 50%;
+  border-radius: 50%;
+  background-color: white;
+  cursor: pointer;
+  color: black;
+  z-index: 2;
+  font-size: 18px;
 }
 
-.title > h2 {
-  padding: 10px;
-  font-size: 25px;
-  text-align: center;
-  font-family: sans-serif;
-  font-style: normal;
-  background-color: #eaebf0;
-  border-radius: 10px;
-  width: 100%;
-}
-
-.title > span {
-  border: 1px solid rgba(128, 128, 128, 0.285);
-  width: 50%;
+.link-item::after{
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 
 section {

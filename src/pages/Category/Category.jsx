@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader";
 import { Modal } from "antd";
+import { deleteUser } from "../../api/deleteRequests";
 
 const Category = () => {
   const { categorys, serverUrl, currentUser, toggle, exit } = useInfoContext();
@@ -92,6 +93,7 @@ const Category = () => {
     setClicked(true)
     try {
       const data = new FormData(e.target);
+      data.append('author', currentUser._id)
       const res = await addRes(data, "category");
       toggle();
       toggleModal()
@@ -109,13 +111,32 @@ const Category = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+      if (window.confirm("Are you sure you want to delete this Worker?")) {
+        try {
+          const res = await deleteUser(id, "category");
+          toast.dismiss();
+          toast.success(res?.data.message);
+          toggle();
+        } catch (err) {
+          if (err?.response?.data.message === "jwt expired") {
+            exit();
+          }
+          toast.dismiss();
+          toast.error(err?.response?.data.message);
+        }
+      }
+    };
+
   return (
     <div className="container">
       <div className="cars-box">
         {categorys?.length > 0 ? (
           categorys.map(office => {
             return (
-              <Link key={office._id} to={`/brand/${office._id}`}>
+              <div className="category-item" key={office._id} >
+              {office.author === currentUser?._id && <i className='fa-solid fa-trash delBtn' onClick={() => handleDelete(office?._id)}></i>}
+              <Link className="link-item" to={`/brand/${office._id}`}></Link>
                 <div className="category">
                   <img
                     src={`${office.image.url}`}
@@ -123,7 +144,7 @@ const Category = () => {
                   />
                   <h2>{office.title}</h2>
                 </div>
-              </Link>
+              </div>
             );
           })
         ) : (
@@ -133,7 +154,7 @@ const Category = () => {
       {open && <Modal open={open} footer={false} onCancel={toggleModal}>
           <form className="add-form" action="" onSubmit={addcategory}>
           <h4>Yangi Ofis qo'shish</h4>
-          {currentUser?.role === 101 && (
+          {currentUser?.role === 101 || currentUser?.role === 102 && (
             <>
                <div className="project-info">
                   <div className="file-upload">

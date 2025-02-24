@@ -80,6 +80,10 @@ a {
     text-decoration: none;
 }
 
+.category-item{
+    position: relative;
+}
+
 .category img {
     height: 100px;
     object-fit: cover;
@@ -142,23 +146,20 @@ a {
 .add-form .title-office label{
     position: absolute;
     left: 15px;
+    /* transform: translateY(11px); */
     pointer-events: none;
     transform: 100ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.add-form .title-office input, .add-form select{
+.add-form .title-office input{
     width: 100%;
 }
 
-.add-form select{
-    padding-left: 30px;
-}
-
-input:focus, input:valid{
+.add-form input:focus, .add-form input:valid{
     outline: none;
     border: 1px solid gray;
 }
 
-input:focus ~ label, input:valid ~ label{
+.add-form input:focus ~ label, .add-form input:valid ~ label{
     transform: translateY(-18px) scale(.9);
     background-color: white;
     padding: 0 5px;
