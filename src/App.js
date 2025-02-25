@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { useInfoContext } from './context/InfoContext';
 import { ToastContainer } from 'react-toastify';
 import Category from './pages/Category/Category';
 import Header from '../src/components/Header/Header';
@@ -13,10 +12,10 @@ import NotFound from './pages/NotFoud.jsx/NotFound';
 import 'react-phone-input-2/lib/style.css'
 import Footer from './components/Footer/Footer';
 import 'boxicons/css/boxicons.min.css';
+import { useInfoContext } from './context/InfoContext';
 
 function App() {
-
-  const { currentUser } = useInfoContext()
+  const {currentUser} = useInfoContext
 
   return (
     <div className="App">

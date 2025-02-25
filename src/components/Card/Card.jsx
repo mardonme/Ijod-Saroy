@@ -27,6 +27,8 @@ const Card = ({ car, showUpdate, setUpdate}) => {
     }
   };
 
+  console.log(car);
+  
   return (
       <div className="card">
         <Link className="link-item" to={`/profile/${car._id}`}></Link>
