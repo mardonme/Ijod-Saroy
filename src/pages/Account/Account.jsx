@@ -71,7 +71,7 @@ const Account = () => {
           </div>
           <div className="right-page">
               <div className="content">
-                  <InputValue type="text" name='firstname' defaultValue={user?.firstname} placeholder='Xodimning (Ishchining) ismi' disabled={true}/>
+                  <InputValue type="text" name='firstname' defaultValue={user?.firstname} placeholder='Xodimning (Ishchining) ismi' disabled={false}/>
                   <InputValue type="text" name='lastname' defaultValue={user?.lastname} placeholder='Xodimning (Ishchining) familiyasi'/>
                   <InputValue type="email" name='email' defaultValue={user?.email} placeholder='Xodimning (Ishchining) emaili (elektron pochta manzili)'/>
                   <InputValue type="text" name='phoneNumber' defaultValue={user?.phoneNumber} placeholder='Xodimning (Ishchining) telefon raqami'/>

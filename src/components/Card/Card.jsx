@@ -34,7 +34,7 @@ const Card = ({ car, showUpdate, setUpdate}) => {
         <div className="card-body">
           <h4><i className="fa-solid fa-user"></i> {car?.firstname} {car?.lastname}</h4>
           <h6><i className="fa-solid fa-at"></i> {car?.email}</h6>
-          <h4> <i class="fa-solid fa-phone"></i> {car?.phoneNumber}</h4>
+          <h4> <i className="fa-solid fa-phone"></i> {car?.phoneNumber}</h4>
           <div className="options-btn delBtn" onClick={() => setOpen(!open)}> <i className="fa-solid fa-ellipsis-vertical"></i> </div>
           {(car.authorId === currentUser?._id && open) || ( currentUser?.role === 102 && open) && 
             <ul className="options">
