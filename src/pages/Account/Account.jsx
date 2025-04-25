@@ -7,11 +7,13 @@ import { deleteUser } from '../../api/deleteRequests'
 import './Account.css'
 import { toast } from 'react-toastify'
 import InputValue from '../../components/InputValue/InputValue'
+import PhoneInput from '../../components/PhoneInput/PhoneInput'
 
 const Account = () => {
   const id = useParams().id
   const { currentUser, setCurrentUser, exit } = useInfoContext()
   const [user, setUser] = useState(null)
+  const [look, setLook] = useState(false)
 
   useEffect(() => {
     const getUser = async () => {
@@ -68,7 +70,7 @@ const Account = () => {
       <form className="account-form" onSubmit={updateUser}>
         <div className="account-left">
           <div className="profile-image-container">
-            <img
+            <img onClick={() => setLook(!look)}
               src={user?.profilePicture?.url ? user.profilePicture.url : "/images/default.jpg"}
               alt="profile"
               className="profile-image"
@@ -109,13 +111,9 @@ const Account = () => {
               placeholder='Email'
               disabled={!canEdit}
             />
-            <InputValue
-              type="text"
-              name='phoneNumber'
-              defaultValue={user?.phoneNumber}
-              placeholder='Telefon raqami'
-              disabled={!canEdit}
-            />
+            <div className="input-value">
+              <PhoneInput defaultValue={user?.phoneNumber} disabled={!canEdit}/>
+            </div>
           </div>
 
           <div className="action-buttons">
@@ -133,6 +131,9 @@ const Account = () => {
           </div>
         </div>
       </form>
+      {look && <div className='looking' onClick={() => setLook(!look)}>
+        <img src={user?.profilePicture?.url ? user.profilePicture.url : "/images/default.jpg"} alt="profile" />
+    </div>}
     </div>
   )
 }
