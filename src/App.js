@@ -6,7 +6,6 @@ import Category from './pages/Category/Category';
 import Header from '../src/components/Header/Header';
 import Account from './pages/Account/Account';
 import Users from './pages/Users/Users';
-import Auth from './pages/Auth/Auth';
 import Brands from './pages/Brands/Brands';
 import NotFound from './pages/NotFoud.jsx/NotFound';
 import 'react-phone-input-2/lib/style.css'
@@ -24,7 +23,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Category />} /> {/* Define the default route */}
           <Route path="/users" element={<Users />} />
-          <Route path="/auth" element={!currentUser ? <Auth /> : <Navigate to='/' replace/>} />
           <Route path="/profile/:id" element={<Account />} />
           <Route path="/brand/:id" element={<Brands />} />
           <Route path="/account" element={<Account />} />

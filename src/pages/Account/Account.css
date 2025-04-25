@@ -1,116 +1,142 @@
-.account {
+.account-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .account-form {
     display: flex;
-    align-items: center;
-    gap: 40px;
-    padding: 30px;
-    max-width: 1000px;
-    margin: auto;
-    /* background: #ffffff; */
-    border-radius: 12px;
-    /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); */
-}
-
-.account .profile-image {
+    flex-direction: row;
+    gap: 2rem;
+    /* background: #fff; */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+  
+  .account-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .account-right {
+    flex: 2;
+  }
+  
+  .profile-image-container {
     position: relative;
-    width: 260px;
-    height: 260px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    /* justify-content: center; */
-    background-color: #f1f1f1;
-    border: 5px solid #ccc;
-}
-
-.account .profile-image img {
+    border: 3px solid #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.account .profile-image label {
+  }
+  
+  .image-upload {
     position: absolute;
-    bottom: 25px;
-    right: 25px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: gold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s, transform 0.2s;
-}
-
-.account .profile-image label:hover {
-    background-color: orange;
-    transform: scale(1.1);
-}
-
-.account .profile-image .user-active {
-    position: absolute;
-    bottom: 12px;
-    right: 65px;
-    height: 22px;
-    width: 22px;
-    border-radius: 50%;
-    border: 2px solid white;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-}
-
-.account .right-page {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    padding: 15px;
-}
-
-.account .content {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.account .content input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #ccc;
-    font-size: 16px;
-    transition: border-color 0.3s;
-}
-
-.account .content input:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-button {
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: #007bff;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
     color: white;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-.delete-btn {
-    background-color: red;
-    margin-top: 20px;
-}
-
-.delete-btn:hover {
-    background-color: darkred;
-}
+    text-align: center;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .image-upload:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  .upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .upload-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .account-title {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+  }
+  
+  .input-fields {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .update-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .update-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .exit-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .exit-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .account-form {
+      flex-direction: column;
+    }
+    
+    .account-left, .account-right {
+      flex: none;
+      width: 100%;
+    }
+    
+    .profile-image-container {
+      margin: 0 auto;
+    }
+    
+    .action-buttons {
+      justify-content: center;
+    }
+  }

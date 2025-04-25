@@ -10,77 +10,129 @@ import InputValue from '../../components/InputValue/InputValue'
 
 const Account = () => {
   const id = useParams().id
-  const {currentUser, setCurrentUser, exit} = useInfoContext()
+  const { currentUser, setCurrentUser, exit } = useInfoContext()
   const [user, setUser] = useState(null)
-  useEffect(()=>{
-    const getUser = async () =>{
+
+  useEffect(() => {
+    const getUser = async () => {
       try {
-        const res = await getOne(id, 'worker')
-        setUser(res.data.getOne)
+        const res = await getOne(id, 'user')
+        setUser(res.data.user)
       } catch (error) {
-        console.log(error);
-        
+        console.log(error)
       }
     }
-    if(id !== currentUser?._id){
+
+    if (id !== currentUser?._id) {
       getUser()
-    } else{
+    } else {
       setUser(currentUser)
     }
-  },[id])
+  }, [id, currentUser])
 
   const updateUser = async (e) => {
     e.preventDefault()
     const data = new FormData(e.target)
     try {
       const res = await updateRes(id, data, 'user')
-      console.log(res);
-      if(id === currentUser._id){
+      if (id === currentUser._id) {
         setCurrentUser(res.data.user)
         setUser(res.data.user)
         localStorage.setItem("profile", JSON.stringify(res?.data.user))
+      } else {
+        setUser(res.data.user)
       }
+      toast.success("Ma'lumotlar yangilandi")
     } catch (error) {
-      console.log(error);
-      
+      console.log(error)
+      toast.error("Yangilashda xatolik yuz berdi")
     }
   }
 
   const deleteAccount = async (e) => {
     e.preventDefault()
     try {
-      const res = await deleteUser(id,'user')
-      console.log(res);
+      const res = await deleteUser(id, 'user')
+      console.log(res)
     } catch (err) {
-      console.log(err);
+      console.log(err)
       toast.dismiss()
       toast.error(err.response.data.message)
-      
     }
   }
+
+  const canEdit = currentUser?._id === user?._id || currentUser?.role === 102
+
   return (
-    <div className='container'>
-        <form className="account" onSubmit={updateUser}>
-          <div className="left-page">
-              <div className="profile-image">
-                <img src={user?.profilePicture ? user?.profilePicture?.url : "/images/default.jpg"} alt="profile" />
-                <label htmlFor="profilePicture"><i className='fa-solid fa-image'></i></label>
-                <input id='profilePicture' name='image' type="file" hidden/>
-                {/* <span title={user?.isActive ? 'acitve' : "no-active"} className='user-active' style={user?.isActive ? {backgroundColor: 'green'} : {backgroundColor: 'red'}}></span> */}
+    <div className='account-container'>
+      <form className="account-form" onSubmit={updateUser}>
+        <div className="account-left">
+          <div className="profile-image-container">
+            <img
+              src={user?.profilePicture?.url ? user.profilePicture.url : "/images/default.jpg"}
+              alt="profile"
+              className="profile-image"
+            />
+            {canEdit && (
+              <div className="image-upload">
+                <label htmlFor="profilePicture" className="upload-label">
+                  <i className='fa-solid fa-image upload-icon'></i>
+                  <span>Rasmni o'zgartirish</span>
+                </label>
+                <input id='profilePicture' name='image' type="file" hidden />
               </div>
+            )}
           </div>
-          <div className="right-page">
-              <div className="content">
-                  <InputValue type="text" name='firstname' defaultValue={user?.firstname} placeholder='Xodimning (Ishchining) ismi' disabled={false}/>
-                  <InputValue type="text" name='lastname' defaultValue={user?.lastname} placeholder='Xodimning (Ishchining) familiyasi'/>
-                  <InputValue type="email" name='email' defaultValue={user?.email} placeholder='Xodimning (Ishchining) emaili (elektron pochta manzili)'/>
-                  <InputValue type="text" name='phoneNumber' defaultValue={user?.phoneNumber} placeholder='Xodimning (Ishchining) telefon raqami'/>
-              </div>
+        </div>
+
+        <div className="account-right">
+          <h2 className="account-title">Profil Ma'lumotlari</h2>
+          <div className="input-fields">
+            <InputValue
+              type="text"
+              name='firstname'
+              defaultValue={user?.firstname}
+              placeholder='Ism'
+              disabled={!canEdit}
+            />
+            <InputValue
+              type="text"
+              name='lastname'
+              defaultValue={user?.lastname}
+              placeholder='Familiya'
+              disabled={!canEdit}
+            />
+            <InputValue
+              type="email"
+              name='email'
+              defaultValue={user?.email}
+              placeholder='Email'
+              disabled={!canEdit}
+            />
+            <InputValue
+              type="text"
+              name='phoneNumber'
+              defaultValue={user?.phoneNumber}
+              placeholder='Telefon raqami'
+              disabled={!canEdit}
+            />
           </div>
-          
-          <button>Update</button>
-        </form>
-        <button onClick={exit}>Exit</button>
+
+          <div className="action-buttons">
+            {canEdit && (
+              <button type="submit" className="update-btn">
+                Yangilash
+              </button>
+            )}
+            
+            {user?._id === currentUser?._id && (
+              <button onClick={exit} className="exit-btn">
+                Chiqish
+              </button>
+            )}
+          </div>
+        </div>
+      </form>
     </div>
   )
 }

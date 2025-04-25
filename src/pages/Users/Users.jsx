@@ -14,7 +14,7 @@ const Users = () => {
             if (car) {
               return <Card key={car._id} car={car} />;
             }
-            return <h2>User not found</h2>;
+            return <h2>Ishchilar topilmadi</h2>;
           })
         ) : (
           <Loader />

@@ -11,7 +11,7 @@ const Footer = () => {
               <h6>©2025 Yoshlar ijod saroyi</h6>
             </div>
             <div className="poiciy">
-              <a href="https://t.me/nodeDevX" target="_blank">Created by ......</a>
+              {/* <a href="https://t.me/nodeDevX" target="_blank">Created by ......</a> */}
             </div>
           </div>
         </div>
