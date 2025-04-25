@@ -77,7 +77,7 @@ const Account = () => {
               <div className="image-upload">
                 <label htmlFor="profilePicture" className="upload-label">
                   <i className='fa-solid fa-image upload-icon'></i>
-                  <span>Rasmni o'zgartirish</span>
+                  <span>O'zgartirish</span>
                 </label>
                 <input id='profilePicture' name='image' type="file" hidden />
               </div>

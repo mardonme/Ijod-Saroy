@@ -35,13 +35,14 @@ export const InfoProvider = ({children}) => {
     const exit = () => {
         localStorage.clear()
         setCurrentUser(null)
-    
+        window.location.replace('/')
     }
 
      const value = {
         exit, currentUser, setCurrentUser,
         serverUrl, cars, setCars,
-        categorys, setCategorys, toggle
+        categorys, setCategorys, toggle, 
+        setLoad, load
     }
  
     return (

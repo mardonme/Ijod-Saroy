@@ -24,13 +24,16 @@
     justify-content: center;
 }
 
-.card-body h4{
+.card-body .name{
+    text-transform: capitalize;
+}
+
+.card-body h4, .card-body h6{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     font-size: 16px;
-    text-transform: capitalize;
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
 }
@@ -40,6 +43,9 @@
 }
 
 @media (max-width: 450px){
+    .cars-box{
+        padding: 0;
+    }
     .card{
         width: 48%;
     }
@@ -51,5 +57,9 @@
     }
     .card-body h4{
         font-size: 12px;
+    }
+    .card-body h6{
+        font-size: 12px;
+        overflow-x: auto;
     }
 }

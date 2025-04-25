@@ -9,11 +9,10 @@ import InputValue from '../../components/InputValue/InputValue'
 import { updateRes } from '../../api/updateRequests';
 
 const Brands = () => {
-    const {cars, categorys, currentUser, exit, toggle } = useInfoContext();
+    const {cars, categorys, currentUser, exit, setLoad } = useInfoContext();
     const {id} = useParams()
     const result = cars.filter(car => car?.categoryId === id)
     const [open, setOpen] = useState()
-    const [clicked, setClicked] = useState(false);
     const toggleModal = () => setOpen(!open)
     const [preview, setPreview] = useState(null);
     const [update, setUpdate] = useState(null);
@@ -118,40 +117,44 @@ const Brands = () => {
 
     const addUser = async (e) => {
     e.preventDefault();
+    setLoad(true);
     const data = new FormData(e.target);
     data.append("author", currentUser._id);
     try {
         const res = await addRes(data, "user");
         e.target.reset();
-        toggle();
+        setLoad(false);
         toggleModal()
         toast.dismiss();
         toast.success(res?.data.message);
-    } catch (err) {
+      } catch (err) {
         if (err?.response?.data.message === "jwt expired") {
-        exit();
+          exit();
         }
+        setLoad(false);
         toast.dismiss();
         toast.error(err?.response?.data.message);
     }
     };
 
     const updateUser = async (e) => {
+      setLoad(true);
     e.preventDefault();
     const data = new FormData(e.target);
     try {
         const res = await updateRes(update._id, data, "user");
         e.target.reset();
-        toggle();
+        setLoad(false);
         toggleModal()
         toast.dismiss();
         toast.success(res?.data.message);
-    } catch (err) {
+      } catch (err) {
         console.log(err);
         
         if (err?.response?.data.message === "jwt expired") {
-        exit();
+          exit();
         }
+        setLoad(false);
         toast.dismiss();
         toast.error(err?.response?.data.message);
     }
@@ -215,11 +218,11 @@ const Brands = () => {
                   </datalist>
                   <input type="text" hidden name="categoryId" value={update ? update.categoryId : selectedId} />
               </div>
-              <button disabled={!preview || clicked} style={preview ? {borderColor: 'green', color: 'white', cursor: 'pointer', backgroundColor: 'green'} : {borderColor: 'rgba(255, 0, 0, 0.300)', color: 'rgba(255, 0, 0, 0.300)', cursor: 'no-drop'}}>{update ? "Xodimni (Ishchini) o'zgartirish" : "Xodimni (Ishchini) qo'shish"}</button>
+              <button disabled={!preview} style={preview ? {borderColor: 'green', color: 'white', cursor: 'pointer', backgroundColor: 'green'} : {borderColor: 'rgba(255, 0, 0, 0.300)', color: 'rgba(255, 0, 0, 0.300)', cursor: 'no-drop'}}>{update ? "Xodimni (Ishchini) o'zgartirish" : "Xodimni (Ishchini) qo'shish"}</button>
             </div>
           </form>
         </Modal>}
-        <button name="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-user-plus"></i></button>
+        {(currentUser?.role === 101) || (currentUser?.role === 102) && <button name="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-user-plus"></i></button>}
     </div>
   )
 }

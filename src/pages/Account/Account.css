@@ -72,6 +72,7 @@
   
   .account-title {
     color: #333;
+    text-shadow: 0 2px 5px white;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
     border-bottom: 2px solid #f0f0f0;

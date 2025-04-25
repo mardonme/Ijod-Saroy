@@ -11,7 +11,9 @@ header {
   align-items: center;
   justify-content: space-between;
 }
-
+.home-exit{
+  padding: 5px 10px;
+}
 .logo {
   display: flex;
   align-items: center;
@@ -36,8 +38,9 @@ header {
 
 .nav-list {
   list-style-type: none;
-  width: 100%;
+  width: 100%;  
   margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -107,16 +110,6 @@ header {
   margin-right: 8px;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .nav-item {
-    flex-direction: column;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-  }
-}
-
-
 
 .login {
   color: #2e64ba !important;
@@ -132,152 +125,20 @@ header {
   background: #2e64ba;
 }
 
-.home-exit {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.home-exit i {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 50%;
-  align-items: center;
-  color: greenyellow;
-  justify-content: center;
-  box-shadow: 0 0 5px rgba(128, 128, 128, 0.45);
-}
-
-.exit-login i {
-  font-size: 18px;
-  color: #a2001d;
-}
-
-.dropdown {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 30px 20px;
-}
-
-@media (max-width: 1024px) {
-  .hero-cars {
-    width: 500px;
-  }
-}
 
 @media (max-width: 768px) {
-  .nav-list {
+  header{
+    padding: 5px 20px !important;
+  }
+  .navbar{
     display: none;
-  }
-  .navbar .res-list {
-    margin: 0;
-    display: block;
-    list-style-type: none;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-  }
-  .hero {
-    flex-direction: column-reverse;
-  }
-
-  .hero-cars {
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .hero-cars img {
-    width: 100% !important;
-  }
-
-  .hero {
-    margin-top: 50px;
-  }
-
-  .hero .dream-car {
-    text-align: center;
-  }
-
-  .hero .button-flex {
-    justify-content: center;
-    align-items: center;
-  }
-  .hero .button-flex span {
-    font-size: 40px;
-  }
-  .hero .button-flex a {
-    margin-top: 10px;
   }
 }
 
 @media (max-width: 450px) {
-  .hero {
-    flex-direction: column-reverse;
+  .logo-text{
+    display: none;
   }
-
-  .hero-cars img {
-    width: 300px !important;
-  }
-
-  .hero-cars {
-    width: 300px;
-  }
-}
-
-
-@font-face {
-  font-family: 'Poppins', sans-serif;
-  src: url(../../fonts/RubikDoodleShadow-Regular.ttf);
-}
-
-.auth-box{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 85vh;
-}
-
-.auth {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100%;
-  flex-wrap: wrap;
-  transform: translateY(-30px);
-  overflow: hidden;
-}
-
-.auth>div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 30px;
-}
-
-.auth-left {
-  gap: 30px;
-}
-
-.logo-img {
-  display: block;
-  /* width: 180px; */
-  height: 180px;
-}
-
-.app-name>h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 48px;
-}
-
-.app-name>h6 {
-  font-size: 16px;
 }
 
 .auth-form {
@@ -289,10 +150,6 @@ header {
   justify-content: center;
   align-items: center;
   margin-top: 52px;
-}
-
-.auth-form h3, .auth-form button{
-  font-family: 'Poppins', sans-serif;
 }
 
 .auth-form>div {
@@ -340,19 +197,4 @@ header {
   background-color: #fff;
   pointer-events: none;
 }
-
-.info-span {
-  font-size: 12px;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.confirm-span {
-  color: red;
-  font-size: 12px;
-  align-self: flex-end;
-  margin-right: 16px;
-  margin-top: 5px;
-}
-
 

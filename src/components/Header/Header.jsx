@@ -7,13 +7,15 @@ import { toast } from "react-toastify";
 import { logIn } from "../../api/authRequests";
 import { Modal } from "antd";
 const Header = () => {
-  const { currentUser, exit, setCurrentUser} = useInfoContext();
+  const { currentUser, setLoad, setCurrentUser} = useInfoContext();
   const [disButton, setdisButton] = useState(false)
   const [open, setOpen] = useState(false)
   const toggleAuth = () => setOpen(!open)
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setdisButton(true)
+    setLoad(true)
     const data = new FormData(e.target)
     try {
       toast.loading("Iltimos kuting...")
@@ -24,14 +26,16 @@ const Header = () => {
       localStorage.setItem("profile", JSON.stringify(res?.data.user))
       localStorage.setItem("access_token", res?.data.token)
       setdisButton(false)
+      setLoad(false)
       window.location.replace('/')
-  } catch (error) {
+    } catch (error) {
       toast.dismiss()
+      setLoad(false)
       toast.error(error?.response?.data.message)
       setdisButton(false)
   }
   }
-  const [value, setValue] = useState()
+  
   return (
     <header>
       <nav className="navbar">

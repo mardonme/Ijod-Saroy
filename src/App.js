@@ -12,12 +12,14 @@ import 'react-phone-input-2/lib/style.css'
 import Footer from './components/Footer/Footer';
 import 'boxicons/css/boxicons.min.css';
 import { useInfoContext } from './context/InfoContext';
+import Loader from './components/Loader/Loader';
 
 function App() {
-  const {currentUser} = useInfoContext
+  const {load} = useInfoContext()
 
   return (
-    <div className="App">
+    <>
+    {load ? <Loader/> :  <div className="App">
       <Header />
       <div className="content">
         <Routes>
@@ -31,8 +33,8 @@ function App() {
       </div>
       <Footer />
       <ToastContainer />
-    </div>
-
+    </div>}
+    </>
   );
 }
 

@@ -85,9 +85,9 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: white;
   cursor: pointer;
-  color: black;
+  color: red;
+  text-shadow: 0 0 5px white;
   z-index: 2;
   font-size: 18px;
 }

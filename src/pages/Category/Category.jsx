@@ -9,7 +9,7 @@ import { Modal } from "antd";
 import { deleteUser } from "../../api/deleteRequests";
 
 const Category = () => {
-  const { categorys, serverUrl, currentUser, toggle, exit } = useInfoContext();
+  const { categorys, setLoad, currentUser, toggle, exit } = useInfoContext();
   const [open, setOpen] = useState()
   const toggleModal = () => setOpen(!open)
   const [title, setTitle] = useState('');
@@ -37,7 +37,6 @@ const Category = () => {
       }
       
       fr.readAsDataURL(file);
-      console.log(fr);
       fr.addEventListener("load", () => {
         const url = fr.result;
         localStorage.setItem("temp", JSON.stringify(url));
@@ -91,12 +90,13 @@ const Category = () => {
   const addcategory = async (e) => {
     e.preventDefault();
     setClicked(true)
+    setLoad(true);
     try {
       const data = new FormData(e.target);
       data.append('author', currentUser._id)
       const res = await addRes(data, "category");
-      toggle();
       toggleModal()
+      setLoad(false);
       setClicked(false)
       e.target.reset();
       toast.dismiss();
@@ -105,6 +105,7 @@ const Category = () => {
       if (err?.response?.data.message === "jwt expired") {
         exit();
       }
+      setLoad(false);
       setClicked(false)
       toast.dismiss();
       toast.error(err?.response?.data.message);
@@ -113,15 +114,17 @@ const Category = () => {
 
   const handleDelete = async (id) => {
       if (window.confirm("Are you sure you want to delete this Worker?")) {
+        setLoad(true);
         try {
           const res = await deleteUser(id, "category");
+          setLoad(false);
           toast.dismiss();
           toast.success(res?.data.message);
-          toggle();
         } catch (err) {
           if (err?.response?.data.message === "jwt expired") {
             exit();
           }
+          setLoad(false)
           toast.dismiss();
           toast.error(err?.response?.data.message);
         }
@@ -190,7 +193,7 @@ const Category = () => {
           )}
         </form>
       </Modal>}
-      <button title="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-calendar-plus"></i></button>
+      {currentUser?.role === 101 || currentUser?.role === 102 && <button title="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-calendar-plus"></i></button>}
     </div>
   );
 };

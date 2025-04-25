@@ -26,19 +26,17 @@ const Card = ({ car, showUpdate, setUpdate}) => {
       }
     }
   };
-
-  console.log(car);
   
   return (
       <div className="card">
         <Link className="link-item" to={`/profile/${car._id}`}></Link>
         <img src={`${car?.profilePicture?.url}`} alt="card_photo" />
         <div className="card-body">
-          <h4><i className="fa-solid fa-user"></i> {car?.firstname} {car?.lastname}</h4>
+          <h4 className="name"><i className="fa-solid fa-user"></i> {car?.firstname} {car?.lastname}</h4>
           <h6><i className="fa-solid fa-at"></i> {car?.email}</h6>
           <h4> <i className="fa-solid fa-phone"></i> {car?.phoneNumber}</h4>
-          <div className="options-btn delBtn" onClick={() => setOpen(!open)}> <i className="fa-solid fa-ellipsis-vertical"></i> </div>
-          {(car.authorId === currentUser?._id && open) || ( currentUser?.role === 102 && open) && 
+          {(car?.authorId === currentUser?._id && open) || ( currentUser?.role === 102 && open) && <div className="options-btn delBtn" onClick={() => setOpen(!open)}> <i className="fa-solid fa-ellipsis-vertical"></i> </div>}
+          {(car?.authorId === currentUser?._id && open) || ( currentUser?.role === 102 && open) && 
             <ul className="options">
               <li onClick={() => handleDelete(car?._id)}><i className='fa-solid fa-trash'></i> O'chirish</li>
               <li onClick={() => {setUpdate(car); setOpen(false); showUpdate()}}><i className='fa-solid fa-pen'></i> O'zgartirish</li>
