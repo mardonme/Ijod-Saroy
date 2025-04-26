@@ -1,72 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
+const formatPhoneNumber = (numericValue) => {
+  let formatted = '+998 (__) ___-__-__';
+  let index = 0;
+  for (let char of numericValue) {
+    formatted = formatted.replace('_', char);
+    index++;
+  }
+  return formatted;
+};
+
+const extractNumeric = (input) => {
+  return input.replace(/[^\d]/g, '').replace(/^998/, '');
+};
 
 const PhoneInput = ({ defaultValue = '', required, disabled}) => {
-  const formatPhone = (value) => {
-    let numericValue = value.replace(/[^\d]/g, '');
-
-    // Agar 998 bilan boshlansa, uni olib tashlaymiz
-    if (numericValue.startsWith('998')) {
-      numericValue = numericValue.slice(3);
-    } else if (numericValue.length === 12 && numericValue.startsWith('+998')) {
-      numericValue = numericValue.slice(4);
-    }
-
-    // 9 ta raqamdan ortig‘ini olmaymiz
-    numericValue = numericValue.slice(0, 9);
-
-    let formatted = '+998 (__) ___-__-__';
-    for (let char of numericValue) {
-      formatted = formatted.replace('_', char);
-    }
-    return formatted;
-  };
-
-  const [value, setValue] = useState(formatPhone(defaultValue));
+  const [value, setValue] = useState('+998 (__) ___-__-__');
+  const [isEdited, setIsEdited] = useState(false);
 
   useEffect(() => {
-    setValue(formatPhone(defaultValue));
+    if (defaultValue) {
+      let numericValue = extractNumeric(defaultValue);
+      numericValue = numericValue.slice(0, 9);
+      setValue(formatPhoneNumber(numericValue));
+    }
   }, [defaultValue]);
 
   const handleChange = (e) => {
+    setIsEdited(true);
     let input = e.target.value;
-    let numericValue = input.replace(/[^\d]/g, '');
-    if (numericValue.startsWith('998')) {
-      numericValue = numericValue.slice(3);
-    }
+    let numericValue = extractNumeric(input);
     numericValue = numericValue.slice(0, 9);
-    let formatted = '+998 (__) ___-__-__';
-    for (let char of numericValue) {
-      formatted = formatted.replace('_', char);
-    }
-    setValue(formatted);
+    setValue(formatPhoneNumber(numericValue));
   };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Backspace') {
       e.preventDefault();
-      let numericValue = value.replace(/[^\d]/g, '');
+      setIsEdited(true);
+      let input = value;
+      let numericValue = extractNumeric(input);
+
       numericValue = numericValue.slice(0, -1);
-      let formatted = '+998 (__) ___-__-__';
-      for (let char of numericValue) {
-        formatted = formatted.replace('_', char);
-      }
-      setValue(formatted);
+      setValue(formatPhoneNumber(numericValue));
     }
   };
 
   return (
-    <div className="input-value">
-      <input
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        defaultValue={value}
-        disabled={disabled}
-        name='phoneNumber'
-        placeholder='+998 (__) ___-__-__'
-        required={required}
-        // style={{ margin: '0 10px', width: '100%' }}
-      />
-    </div>
+    <input
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      value={value}
+      name="phoneNumber"
+      disabled={disabled}
+      placeholder="+998 (__) ___-__-__"
+      required={required}
+    />
   );
 };
 

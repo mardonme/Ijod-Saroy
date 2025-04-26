@@ -24,8 +24,7 @@ const Brands = () => {
     const [update, setUpdate] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [selectedTitle, setSelectedTitle] = useState("");
-    const [selectedId, setSelectedId] = useState(allCategorys.length <= 1 ? allCategorys : allCategorys);
-    console.log(selectedId);
+    const [selectedId, setSelectedId] = useState(allCategorys[0]?._id || "");
     
     useEffect(() => {
         if (update) {
@@ -41,7 +40,9 @@ const Brands = () => {
         const title = event.target.value;
         setSelectedTitle(title);
         const selectedCategory = categorys.find(category => category.title === title);
-        setSelectedId(selectedCategory ? selectedCategory : null);
+        setSelectedId(selectedCategory ? selectedCategory._id : "");
+        console.log(selectedId);
+        
     };
 
     const handleFile = (file) => {
@@ -60,14 +61,13 @@ const Brands = () => {
             fr.readAsDataURL(file);
             fr.addEventListener("load", () => {
                 const url = fr.result;
-                localStorage.setItem("temp", JSON.stringify(url));
                 setPreview(url);
             });
         } else {
             toast("Rasm formatidagi xato. Faqat png, jpg, jpeg, heic, heif", { type: "error" });
         }
     };
-
+    
     const handleFileSelect = (event) => {
         if (event?.target?.files[0]) {
             handleFile(event.target.files[0]);
@@ -87,12 +87,14 @@ const Brands = () => {
     };
 
     const addUser = async (e) => {
+        console.log(selectedId);
+        
         e.preventDefault();
         setLoad(true);
         const data = new FormData(e.target);
-        data.append("author", currentUser._id);
-        data.append("categoryId", selectedId[0]?._id);
         try {
+            data.append("author", currentUser?._id);
+            // data.append("categoryId", selectedId);
             const res = await addRes(data, "user");
             e.target.reset();
             setPreview(null);
@@ -101,7 +103,7 @@ const Brands = () => {
             toast.success(res?.data.message);
         } catch (err) {
             if (err?.response?.data.message === "jwt expired") exit();
-            toast.error(err?.response?.data.message);
+            toast.error(err?.response?.data?.message);
         } finally {
             setLoad(false);
         }
@@ -111,7 +113,7 @@ const Brands = () => {
         e.preventDefault();
         setLoad(true);
         const data = new FormData(e.target);
-        data.append("categoryId", selectedId[0]?._id);
+        // data.append("categoryId", selectedId);
         if (imageFile) {
             data.append("image", imageFile);
         }
@@ -124,7 +126,7 @@ const Brands = () => {
             toast.success(res?.data.message);
         } catch (err) {
             if (err?.response?.data.message === "jwt expired") exit();
-            toast.error(err?.response?.data.message);
+            toast.error(err?.response?.data?.message);
         } finally {
             setLoad(false);
         }
@@ -135,7 +137,7 @@ const Brands = () => {
             <div className='cars-box'>
                 {result.length > 0 ? result.map(res => (
                     <Card key={res._id} car={res} showUpdate={toggleModal} setUpdate={setUpdate} />
-                )) : <h2>User not found</h2>}
+                )) : <h2>Foydalanuvchilar topilmadi</h2>}
             </div>
 
             {open && (
@@ -168,12 +170,15 @@ const Brands = () => {
                             </div>
                             <InputValue defaultValue={update?.firstname || ""} type="text" name="firstname" icon='fa-user' placeholder="Ism" required={!update} />
                             <InputValue defaultValue={update?.lastname || ""} type="text" name="lastname" icon='fa-user' placeholder="Familiya" required={!update} />
-                            <PhoneInput defaultValue={update?.phoneNumber || ""} required={!update}/>
+                            <div className="input-value">
+                                <PhoneInput defaultValue={update?.phoneNumber || ""} required={!update}/>
+                            </div>
                             <InputValue defaultValue={update?.email || ""} type="email" name="email" icon='fa-at' placeholder="Email" required={!update} />
                             <InputValue type="password" name="password" icon='fa-lock' placeholder="Parol" required={!update} />
                             <select className='title-office' name="categoryId" id="" disabled={allCategorys.length <= 1} onChange={(e) => handleChange(e)}>
+                            <option selected value={update ? update?.categoryId : ""}>Ofisni tanlang</option>
                             {allCategorys.map(category => {
-                                return <option key={category._id} defaultValue={category.title}>{category.title}</option>
+                                return <option key={category?._id} value={category?._id}>{category.title}</option>
                                 })}
                             </select>
                             <button
