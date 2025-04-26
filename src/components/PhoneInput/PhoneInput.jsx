@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const PhoneInput = ({ defaultValue = '', required }) => {
+const PhoneInput = ({ defaultValue = '', required, disabled}) => {
   const formatPhone = (value) => {
     let numericValue = value.replace(/[^\d]/g, '');
 
@@ -59,7 +59,8 @@ const PhoneInput = ({ defaultValue = '', required }) => {
       <input
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        value={value}
+        defaultValue={value}
+        disabled={disabled}
         name='phoneNumber'
         placeholder='+998 (__) ___-__-__'
         required={required}

@@ -138,7 +138,7 @@ const Category = () => {
           categorys.map(office => {
             return (
               <div className="category-item" key={office._id} >
-              {office.author === currentUser?._id && <i className='fa-solid fa-trash delBtn' onClick={() => handleDelete(office?._id)}></i>}
+              {(office.author === currentUser?._id || currentUser?.role === 102)&& <i className='fa-solid fa-trash delBtn' onClick={() => handleDelete(office?._id)}></i>}
               <Link className="link-item" to={`/brand/${office._id}`}></Link>
                 <div className="category">
                   <img
@@ -157,7 +157,7 @@ const Category = () => {
       {open && <Modal open={open} footer={false} onCancel={toggleModal}>
           <form className="add-form" action="" onSubmit={addcategory}>
           <h4>Yangi Ofis qo'shish</h4>
-          {currentUser?.role === 101 || currentUser?.role === 102 && (
+          {(currentUser?.role === 101 || currentUser?.role === 102) && (
             <>
                <div className="project-info">
                   <div className="file-upload">
@@ -184,7 +184,7 @@ const Category = () => {
                     />
                   </div>
                   <div className="title-office">
-                      <input onChange={(e) => setTitle(title === "" || title === " " ? e.target.value.trim() :  e.target.value)} value={title} style={preview && title !== "" ? {borderColor: 'green'} : {}} id="office-title" type="text" name="title"required />
+                      <input onChange={(e) => setTitle(title === "" || title === " " ? e.target.value.trim() :  e.target.value)} defaultValue={title} style={preview && title !== "" ? {borderColor: 'green'} : {}} id="office-title" type="text" name="title"required />
                       <label>Ofisning (Ish joyining) nomi</label>
                   </div>
                   <button disabled={!preview || title === "" || title.trim() === "" || clicked} style={preview && title !== "" ? {borderColor: 'green', color: 'white', cursor: 'pointer', backgroundColor: 'green'} : {borderColor: 'rgba(255, 0, 0, 0.300)', color: 'rgba(255, 0, 0, 0.300)', cursor: 'no-drop'}}>Ofisni qo'shish</button>
@@ -193,7 +193,7 @@ const Category = () => {
           )}
         </form>
       </Modal>}
-      {currentUser?.role === 101 || currentUser?.role === 102 && <button title="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-calendar-plus"></i></button>}
+      {(currentUser?.role === 101 || currentUser?.role === 102 ) && <button title="Add Office" className="add-category" onClick={toggleModal}><i className="fa-solid fa-calendar-plus"></i></button>}
     </div>
   );
 };

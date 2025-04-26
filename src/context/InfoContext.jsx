@@ -20,9 +20,7 @@ export const InfoProvider = ({children}) => {
         const getAllRes = async () => {
             try {
                 const resUser = await getAll('user')
-                const resCategory = await getAll('category')    
-                localStorage.setItem('users', JSON.stringify(resUser.data.getAll))            
-                localStorage.setItem('categorys', JSON.stringify(resCategory.data.getAll))            
+                const resCategory = await getAll('category')          
                 setCars(resUser.data.getAll)
                 setCategorys(resCategory.data.getAll)
             } catch (error) {

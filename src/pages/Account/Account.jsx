@@ -63,7 +63,7 @@ const Account = () => {
     }
   }
 
-  const canEdit = currentUser?._id === user?._id || currentUser?.role === 102
+  const canEdit = (currentUser?._id === user?._id) || currentUser?.role === 102
 
   return (
     <div className='account-container'>

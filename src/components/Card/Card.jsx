@@ -9,7 +9,8 @@ const Card = ({ car, showUpdate, setUpdate}) => {
   const { currentUser, exit, setLoad } = useInfoContext();
   const [open, setOpen] = useState(false)
   const path = useLocation().pathname
-
+  console.log(car);
+  
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Worker?")) {
       setLoad(true);
@@ -29,7 +30,8 @@ const Card = ({ car, showUpdate, setUpdate}) => {
       }
     }
   };
-  const canEdit = currentUser?.role === 101 || currentUser?.role === 102 || car?.authorId === currentUser?._id
+  const canEdit = (currentUser?.role === 101 && currentUser && car?.author === currentUser?._id) || (currentUser?.role === 102 && currentUser)
+  console.log(canEdit);
   
   return (
       <div className="card">
@@ -39,7 +41,7 @@ const Card = ({ car, showUpdate, setUpdate}) => {
           <h4 className="name"><i className="fa-solid fa-user"></i> {car?.firstname} {car?.lastname}</h4>
           <h6><i className="fa-solid fa-at"></i> {car?.email}</h6>
           <h4> <i className="fa-solid fa-phone"></i> {car?.phoneNumber?.length > 0 && car?.phoneNumber !== "+998 (__) ___-__-__" ? car?.phoneNumber : '--- -- --- -- --'}</h4>
-          {canEdit && path.slice(1) !== "users" && (
+          {((canEdit && path.slice(1) !== "users") || currentUser?.role === 102) && (
               <div className="options-btn delBtn" onClick={() => setOpen(!open)}>
                 <i className="fa-solid fa-ellipsis-vertical"></i>
               </div>

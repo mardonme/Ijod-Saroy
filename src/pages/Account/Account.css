@@ -154,6 +154,10 @@
       flex: none;
       width: 100%;
     }
+
+    .looking img{
+      width: 100%;
+    }
     
     .profile-image-container {
       margin: 0 auto;

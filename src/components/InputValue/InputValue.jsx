@@ -12,7 +12,7 @@ const InputValue = ({ name, type, placeholder, defaultValue, disabled, icon, req
     return (
         <div className="input-value">
             <input 
-                value={value} 
+                defaultValue={value} 
                 onChange={(e) => setValue(e.target.value.trimStart())} 
                 style={value.trim() !== "" ? { borderColor: 'green' } : {}} 
                 type={type} 

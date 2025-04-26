@@ -14,6 +14,8 @@ const Brands = () => {
     const { cars, categorys, currentUser, exit, setLoad } = useInfoContext();
     const { id } = useParams();
     const result = cars.filter(car => car?.categoryId === id);
+    const category = categorys.filter(category => category?._id === id);
+    const allCategorys = categorys.filter(category => (category?.author === currentUser?._id || currentUser?.role === 102));
     
     const [open, setOpen] = useState();
     const toggleModal = () => setOpen(!open);
@@ -22,8 +24,9 @@ const Brands = () => {
     const [update, setUpdate] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [selectedTitle, setSelectedTitle] = useState("");
-    const [selectedId, setSelectedId] = useState("");
-
+    const [selectedId, setSelectedId] = useState(allCategorys.length <= 1 ? allCategorys : allCategorys);
+    console.log(selectedId);
+    
     useEffect(() => {
         if (update) {
             setPreview(update?.profilePicture?.url);
@@ -38,7 +41,7 @@ const Brands = () => {
         const title = event.target.value;
         setSelectedTitle(title);
         const selectedCategory = categorys.find(category => category.title === title);
-        setSelectedId(selectedCategory ? selectedCategory._id : "");
+        setSelectedId(selectedCategory ? selectedCategory : null);
     };
 
     const handleFile = (file) => {
@@ -88,6 +91,7 @@ const Brands = () => {
         setLoad(true);
         const data = new FormData(e.target);
         data.append("author", currentUser._id);
+        data.append("categoryId", selectedId[0]?._id);
         try {
             const res = await addRes(data, "user");
             e.target.reset();
@@ -107,8 +111,9 @@ const Brands = () => {
         e.preventDefault();
         setLoad(true);
         const data = new FormData(e.target);
+        data.append("categoryId", selectedId[0]?._id);
         if (imageFile) {
-            data.append("image", imageFile); // 🟢 Update qilishda faylni qo‘shish
+            data.append("image", imageFile);
         }
         try {
             const res = await updateRes(update._id, data, "user");
@@ -166,22 +171,11 @@ const Brands = () => {
                             <PhoneInput defaultValue={update?.phoneNumber || ""} required={!update}/>
                             <InputValue defaultValue={update?.email || ""} type="email" name="email" icon='fa-at' placeholder="Email" required={!update} />
                             <InputValue type="password" name="password" icon='fa-lock' placeholder="Parol" required={!update} />
-                            <div className="title-office">
-                                <input
-                                    list="browsers"
-                                    name="categoryTitle"
-                                    placeholder="Ofisni tanlang"
-                                    value={selectedTitle}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <datalist id="browsers">
-                                    {categorys.filter(res => res.author === currentUser._id).map(category => (
-                                        <option key={category._id} value={category.title} />
-                                    ))}
-                                </datalist>
-                                <input type="text" hidden name="categoryId" value={update ? update.categoryId : selectedId} />
-                            </div>
+                            <select className='title-office' name="categoryId" id="" disabled={allCategorys.length <= 1} onChange={(e) => handleChange(e)}>
+                            {allCategorys.map(category => {
+                                return <option key={category._id} defaultValue={category.title}>{category.title}</option>
+                                })}
+                            </select>
                             <button
                                 disabled={!preview && !update}
                                 style={
@@ -196,7 +190,7 @@ const Brands = () => {
                 </Modal>
             )}
 
-            {(currentUser?.role === 101 || currentUser?.role === 102) && (
+            {((currentUser?.role === 101 && category[0]?.author === currentUser?._id) || currentUser?.role === 102) && (
                 <button className="add-category" onClick={toggleModal}><i className="fa-solid fa-user-plus"></i></button>
             )}
         </div>
